@@ -1,33 +1,33 @@
 # docker-destop
 # 2 สร้างโปรเจค
-mkdir student-docker
+mkdir phpmyadmin-docker
 
-cd student-docker
-
-
+cd phpmyadmin-docker
 
 
 
 
-# สร้างไฟล์ student-docker
+
+
+# สร้างไฟล์ docker-compose.yml
 
 ```yaml
 services:
   mysql:
     image: mysql:8.0
-    container_name: student_mysql
+    container_name: mysql_db
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: student_db
+      MYSQL_DATABASE: my_database
     ports:
       - "3306:3306"
     volumes:
-      - student_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin:latest
-    container_name: student_phpmyadmin
+    container_name: phpmyadmin
     restart: unless-stopped
     environment:
       PMA_HOST: mysql
@@ -38,11 +38,12 @@ services:
       - mysql
 
 volumes:
-  student_data:
+  mysql_data:
 ```
 
-# 3 รัน
+# รัน
 docker compose up -d
+
 
 # 4 phpMyAdmin
 http://localhost:8080
